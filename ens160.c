@@ -96,21 +96,19 @@ void write_2byte(uint8_t data1, uint8_t data0, uint8_t regAdd)
 	com_stop();
 }
 
-uint16_t read_TVOC(void)
+void read_TVOC(uint16_t* ptr_data0)
 {
 	uint8_t tvoc0 = 0;
 	uint8_t tvoc1 = 0;
 	read_2byte(&tvoc1, &tvoc0, A_DATA_TVOC);
-	uint16_t tvoc_full = (tvoc1 << 8) | tvoc0;
-	return tvoc_full;
+	*ptr_data0 = (tvoc1 << 8) | tvoc0;
 }
 
-uint16_t read_ECO2(void)
+void read_ECO2(uint16_t* ptr_data0)
 {
 	uint8_t eco20 = 0;
 	uint8_t eco21 = 0;
 	read_2byte(&eco21, &eco20, A_DATA_ECO2);
-	uint16_t eco2_full = (eco21 << 8) | eco20;
-	return eco2_full;
+	*ptr_data0 = (eco21 << 8) | eco20;
 }
 
