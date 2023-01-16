@@ -1,7 +1,7 @@
 /*
- * Version 1: Library to communicate with DFRobot ENS160 Sensor via I2C/TWI
+ * Library to communicate with DFRobot ENS160 Sensor via I2C/TWI
  * Author: Richard Karlson
- * See https://www.sciosense.com
+ * See https://www.sciosense.com for ENS160 documentation
  */ 
  
 /*
@@ -29,24 +29,26 @@ Address Name Size Access Description
 0x48 GPR_READ[0:7] 8 Read General Purpose Read Registers
 */
 
-#define W_ADDRESS 0xA6
+//i2c Read and Write Addresses
+#define W_ADDRESS 0xA6 //ENS160 i2c addresses will be different based on value held on MISO pin
 #define R_ADDRESS 0xA7
 
-#define A_PART_ID 0x00 //2
+//Register Addresses
+#define A_PART_ID 0x00
 #define A_OPMODE 0x10
 #define A_CONFIG 0x11
 #define A_COMMAND 0x12
-#define A_TEMP_IN 0x13 //2
-#define A_RH_IN 0x15 //2
+#define A_TEMP_IN 0x13
+#define A_RH_IN 0x15
 #define A_DEVICE_STATUS 0x20
 #define A_DATA_AQI 0x21
-#define A_DATA_TVOC 0x22 //2
-#define A_DATA_ECO2 0x24 //2
-#define A_DATA_T 0x30 //2
-#define A_DATA_RH 0x32 //2
+#define A_DATA_TVOC 0x22
+#define A_DATA_ECO2 0x24
+#define A_DATA_T 0x30
+#define A_DATA_RH 0x32
 #define A_DATA_MISR 0x38
-#define A_GPR_WRITE 0x40 //8
-#define A_GPR_READ 0x48 //8
+#define A_GPR_WRITE 0x40
+#define A_GPR_READ 0x48
 
 void init_ens160(void);
 void com_start(void);

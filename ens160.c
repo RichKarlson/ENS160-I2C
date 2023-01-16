@@ -1,40 +1,48 @@
 /*
- * Version 1: Library to communicate with DFRobot ENS160 Sensor via I2C/TWI
+ * Library to communicate with DFRobot ENS160 Sensor via I2C/TWI
  * Author: Richard Karlson
- * i2c.h library and functions by Steve Gunn
+ * Using base i2c functions by Steve Gunn
  */ 
  
-#include "i2c.h"
 #include "ens160.h"
 
 void init_ens160(void)
 {
-	init_i2c_master();
+	/* F_SCL = F_CPU/120 = 100kHz */
+	TWBR = 0x34;
+	TWSR = 0x00;
 }
 
 void com_start(void)
 {
-	i2c_start();
+	TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN);
+	while(!(TWCR & _BV(TWINT)));
 }
 
 void com_stop(void)
 {
-	i2c_stop();
+	TWCR = _BV(TWINT) | _BV(TWSTO) | _BV(TWEN);
 }
 
 void tx(uint8_t b)
 {
-	i2c_tx(b);
+	TWDR = b;
+	TWCR = _BV(TWINT) | _BV(TWEN);
+	while(!(TWCR & _BV(TWINT)));
 }
 
 uint8_t rx_ack(void)
 {
-	return i2c_rx_ack();
+	TWCR = _BV(TWINT) | _BV(TWEN) | _BV(TWEA);
+	while(!(TWCR & _BV(TWINT)));
+	return TWDR;
 }
 
 uint8_t rx_nack(void)
 {
-	return i2c_rx_nack();
+	TWCR = _BV(TWINT) | _BV(TWEN);
+	while(!(TWCR & _BV(TWINT)));
+	return TWDR;
 }
 
 void opmode(uint8_t mode)
