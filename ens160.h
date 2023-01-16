@@ -64,3 +64,5 @@ void read_1byte(uint8_t* ptr_data, uint8_t regAdd);
 void read_2byte(uint8_t* ptr_data1, uint8_t* ptr_data0, uint8_t regAdd);
 void write_1byte(uint8_t data, uint8_t regAdd);
 void write_2byte(uint8_t data1, uint8_t data0, uint8_t regAdd);
+uint16_t read_TVOC(void);
+uint16_t read_ECO2(void);
