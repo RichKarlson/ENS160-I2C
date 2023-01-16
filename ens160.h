@@ -29,6 +29,9 @@ Address Name Size Access Description
 0x48 GPR_READ[0:7] 8 Read General Purpose Read Registers
 */
 
+#include <avr/io.h>
+#include <util/twi.h>
+
 //i2c Read and Write Addresses
 #define W_ADDRESS 0xA6 //ENS160 i2c addresses will be different based on value held on MISO pin
 #define R_ADDRESS 0xA7
